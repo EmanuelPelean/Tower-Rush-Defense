@@ -16,7 +16,8 @@ public class CubeEditor : MonoBehaviour {
 
         snapPos.x = Mathf.RoundToInt(transform.position.x / gridSize) * gridSize;
         snapPos.z = Mathf.RoundToInt(transform.position.z / gridSize) * gridSize;
-
+        print(snapPos.x);
+        print(snapPos.z);
         textMesh = GetComponentInChildren<TextMesh>();
         string labelText = snapPos.x / gridSize + "," + snapPos.z / gridSize;
         textMesh.text = labelText;
