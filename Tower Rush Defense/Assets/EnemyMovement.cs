@@ -18,8 +18,7 @@ public class EnemyMovement : MonoBehaviour {
         print("Starting patrol...");
         foreach (Waypoint waypoint in path)
         {
-            print("Visiting block: " + waypoint.name);
-            print(waypoint.transform.position);
+            print("Visiting block: " + waypoint);
             transform.position = waypoint.transform.position;
             yield return new WaitForSeconds(1f);
         }
