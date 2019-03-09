@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class Pathfinder : MonoBehaviour {
@@ -25,13 +23,16 @@ public class Pathfinder : MonoBehaviour {
     private void Pathfind()
     {
         queue.Enqueue(startWaypoint);
-        while(queue.Count > 0)
+        while(queue.Count > 0 && isRunning)
         {
            var searchCenter = queue.Dequeue();
+           searchCenter.isExplored = true;
            print("Searching from " + searchCenter); // todo remove log
            stopIfEndFound(searchCenter);
+           exploreNeighbors(searchCenter);
         }
 
+        // todo finish path logic
         print("Finished pathfinding");
     }
 
@@ -44,22 +45,39 @@ public class Pathfinder : MonoBehaviour {
         }
     }
 
-    private void exploreNeighbors()
+    private void exploreNeighbors(Waypoint from)
     {
+        if (!isRunning) { return; }
+
         foreach(Vector2Int direction in directions)
         {
-            Vector2Int explorationCoordinates = startWaypoint.getGridPos() + direction;
-            print("Exploring " + explorationCoordinates);
+            Vector2Int neighborCoordinates = from.getGridPos() + direction;
+            print("Exploring " + neighborCoordinates);
             try
             {
-                grid[explorationCoordinates].setTopColor(Color.blue);
-
+                queueNewNeighbors(neighborCoordinates);
             } 
             catch
             {
                 // do nothing
             }
         }
+    }
+
+    private void queueNewNeighbors(Vector2Int neighborCoordinates)
+    {
+        Waypoint neighbor = grid[neighborCoordinates];
+        if (neighbor.isExplored)
+        {
+            // do nothing
+        }
+        else
+        {
+            neighbor.setTopColor(Color.blue); // todo move
+            queue.Enqueue(neighbor);
+            print("Queueing" + neighbor);
+        }
+       
     }
 
     private void colorStartAndEnd()
