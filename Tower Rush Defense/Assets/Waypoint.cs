@@ -23,6 +23,13 @@ public class Waypoint : MonoBehaviour {
 
     }
 
+    public void setTopColor(Color color)
+    {
+        MeshRenderer topMeshRenderer = transform.Find("Top").GetComponent<MeshRenderer>();
+        topMeshRenderer.material.color = color;
+      
+    }
+
     void Update () {
 		
 	}
