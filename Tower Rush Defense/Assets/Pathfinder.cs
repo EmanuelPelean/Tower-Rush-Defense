@@ -1,12 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Pathfinder : MonoBehaviour {
     [SerializeField] Waypoint startWaypoint, endWaypoint;
+
     Dictionary<Vector2Int, Waypoint> grid = new Dictionary<Vector2Int, Waypoint>();
     Queue<Waypoint> queue = new Queue<Waypoint>();
     bool isRunning = true;
     Waypoint searchCenter;
+    List<Waypoint> path = new List<Waypoint>();
+
     Vector2Int[] directions =
     {
         Vector2Int.up,
@@ -14,27 +18,42 @@ public class Pathfinder : MonoBehaviour {
         Vector2Int.down,
         Vector2Int.left
     };
-    void Start () {
+
+    public List<Waypoint> getPath()
+    {
         loadBlocks();
         colorStartAndEnd();
-        //exploreNeighbors();
-        Pathfind();
-	}
+        breadthFirstSearch();
+        createPath();
+        return path;
+    }
 
-    private void Pathfind()
+    private void createPath()
+    {
+        print("create path");
+        path.Add(endWaypoint);
+
+        Waypoint previous = endWaypoint.exploredFrom;
+        while(previous != startWaypoint)
+        {
+            path.Add(previous);
+            previous = previous.exploredFrom;
+        }
+        path.Add(startWaypoint);
+        path.Reverse();
+    }
+
+    private void breadthFirstSearch()
     {
         queue.Enqueue(startWaypoint);
+
         while(queue.Count > 0 && isRunning)
         {
            searchCenter = queue.Dequeue();
-           searchCenter.isExplored = true;
-           print("Searching from " + searchCenter); // todo remove log
            stopIfEndFound();
            exploreNeighbors();
+           searchCenter.isExplored = true;
         }
-
-        // todo finish path logic
-        print("Finished pathfinding");
     }
 
     private void stopIfEndFound()
@@ -52,15 +71,10 @@ public class Pathfinder : MonoBehaviour {
         foreach(Vector2Int direction in directions)
         {
             Vector2Int neighborCoordinates = searchCenter.getGridPos() + direction;
-            print("Exploring " + neighborCoordinates);
-            try
+            if (grid.ContainsKey(neighborCoordinates))
             {
                 queueNewNeighbors(neighborCoordinates);
             } 
-            catch
-            {
-                // do nothing
-            }
         }
     }
 
@@ -80,6 +94,7 @@ public class Pathfinder : MonoBehaviour {
 
     private void colorStartAndEnd()
     {
+        // todo move
         startWaypoint.setTopColor(Color.green);
         endWaypoint.setTopColor(Color.red);
     }
@@ -89,13 +104,13 @@ public class Pathfinder : MonoBehaviour {
         var waypoints = FindObjectsOfType<Waypoint>();
         foreach(Waypoint waypoint in waypoints)
         {
-            bool isOverlapping = grid.ContainsKey(waypoint.getGridPos());
-            if(isOverlapping)
+            var gridPos = waypoint.getGridPos();
+            if(grid.ContainsKey(gridPos))
             {
                 Debug.LogWarning("Skipping overlapping block " + waypoint);
             } else
             {
-                grid.Add(waypoint.getGridPos(), waypoint);
+                grid.Add(gridPos, waypoint);
             }
         }
     }

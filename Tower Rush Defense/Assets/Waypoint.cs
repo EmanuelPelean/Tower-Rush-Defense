@@ -6,12 +6,11 @@ public class Waypoint : MonoBehaviour {
     [SerializeField] Color exploredColor;
     public bool isExplored = false; // ok as is a data class
     public Waypoint exploredFrom;
-    Vector2Int gridPos;
-    const int gridSize = 10;
-    void Start () {
-		
-	}
 
+    Vector2Int gridPos;
+
+    const int gridSize = 10;
+    
     public int getGridSize()
     {
         return gridSize;

@@ -5,27 +5,20 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour {
 
-    [SerializeField] List<Waypoint> path;
-
-	
 	void Start () {
-        StartCoroutine(FollowPath());
-        
+        Pathfinder pathfinder = FindObjectOfType<Pathfinder>();
+        var path = pathfinder.getPath();
+        StartCoroutine(FollowPath(path));
     }
 
-    IEnumerator FollowPath()
+    IEnumerator FollowPath(List<Waypoint> path)
     {
         print("Starting patrol...");
         foreach (Waypoint waypoint in path)
         {
-            print("Visiting block: " + waypoint);
             transform.position = waypoint.transform.position;
             yield return new WaitForSeconds(1f);
         }
         print("Ending patrol");
     }
-
-    void Update () {
-		
-	}
 }

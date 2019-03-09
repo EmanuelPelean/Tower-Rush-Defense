@@ -31,10 +31,9 @@ public class CubeEditor : MonoBehaviour {
 
     private void updateLabel()
     {
-        int gridSize = waypoint.getGridSize();
         TextMesh textMesh = GetComponentInChildren<TextMesh>();
         string labelText = waypoint.getGridPos().x + "," + waypoint.getGridPos().y;
         textMesh.text = labelText;
-        gameObject.name = "Cube " + labelText;
+        gameObject.name = labelText;
     }
 }
