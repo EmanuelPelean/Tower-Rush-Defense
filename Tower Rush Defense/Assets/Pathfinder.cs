@@ -6,10 +6,36 @@ using UnityEngine;
 public class Pathfinder : MonoBehaviour {
     [SerializeField] Waypoint startWaypoint, endWaypoint;
     Dictionary<Vector2Int, Waypoint> grid = new Dictionary<Vector2Int, Waypoint>();
-	void Start () {
+    Vector2Int[] directions =
+    {
+        Vector2Int.up,
+        Vector2Int.right,
+        Vector2Int.down,
+        Vector2Int.left
+    };
+    void Start () {
         loadBlocks();
         colorStartAndEnd();
+        exploreNeighbors();
 	}
+
+    private void exploreNeighbors()
+    {
+        foreach(Vector2Int direction in directions)
+        {
+            Vector2Int explorationCoordinates = startWaypoint.getGridPos() + direction;
+            print("Exploring " + explorationCoordinates);
+            try
+            {
+                grid[explorationCoordinates].setTopColor(Color.blue);
+
+            } 
+            catch
+            {
+                // do nothing
+            }
+        }
+    }
 
     private void colorStartAndEnd()
     {
