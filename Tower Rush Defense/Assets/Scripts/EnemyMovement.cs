@@ -19,7 +19,7 @@ public class EnemyMovement : MonoBehaviour {
             Vector3 waypointPosition = waypoint.transform.position;
             
             transform.position = waypointPosition;
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(1.5f);
         }
         print("Ending patrol");
     }
