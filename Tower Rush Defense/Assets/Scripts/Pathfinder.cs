@@ -23,27 +23,39 @@ public class Pathfinder : MonoBehaviour {
     {
         if (path.Count == 0)
         {
-            loadBlocks();
+            calculatePath();
             colorStartAndEnd();
-            breadthFirstSearch();
-            createPath();
         }
         return path;
+    }
+
+    private void calculatePath()
+    {
+        loadBlocks();
+        breadthFirstSearch();
+        createPath();
     }
 
     private void createPath()
     {
         print("create path");
-        path.Add(endWaypoint);
+        setAsPath(endWaypoint);
 
         Waypoint previous = endWaypoint.exploredFrom;
         while(previous != startWaypoint)
         {
-            path.Add(previous);
+            setAsPath(previous);
             previous = previous.exploredFrom;
+            setAsPath(previous);
         }
-        path.Add(startWaypoint);
+        setAsPath(startWaypoint);
         path.Reverse();
+    }
+
+    private void setAsPath(Waypoint waypoint)
+    {
+        path.Add(waypoint);
+        waypoint.isPlaceable = false;
     }
 
     private void breadthFirstSearch()
