@@ -34,6 +34,5 @@ public class EnemyDamage : MonoBehaviour {
     {
         hitPoints = hitPoints - 1;
         hitParticlePrefab.Play();
-        print("current hitpoints are " + hitPoints);
     }
 }
