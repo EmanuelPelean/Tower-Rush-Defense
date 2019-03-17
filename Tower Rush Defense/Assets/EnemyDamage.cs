@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyDamage : MonoBehaviour {
 
@@ -8,9 +9,11 @@ public class EnemyDamage : MonoBehaviour {
     [SerializeField] Collider collisionMesh;
     [SerializeField] ParticleSystem hitParticlePrefab;
     [SerializeField] ParticleSystem deathParticlePrefab;
-	void Start () {
-		
-	}
+    private EnemySpawner enemySpawner;
+
+    void Start () {
+        enemySpawner = FindObjectOfType<EnemySpawner>();
+    }
     private void OnParticleCollision(GameObject other)
     {
         
@@ -21,8 +24,9 @@ public class EnemyDamage : MonoBehaviour {
         }
     }
 
-    void KillEnemy()
+    private void KillEnemy()
     {
+        enemySpawner.AddScore();
         // important to instantiate before destroying this object
         var vfx = Instantiate(deathParticlePrefab, transform.position, Quaternion.identity);
         vfx.Play();
@@ -30,7 +34,9 @@ public class EnemyDamage : MonoBehaviour {
         Destroy(gameObject);
     }
 
-    void ProcessHit()
+   
+
+    private void ProcessHit()
     {
         hitPoints = hitPoints - 1;
         hitParticlePrefab.Play();
