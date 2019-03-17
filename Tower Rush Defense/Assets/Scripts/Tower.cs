@@ -10,12 +10,8 @@ public class Tower : MonoBehaviour {
     public Waypoint baseWaypoint;
     // State of each tower
     Transform targetEnemy;
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
+
+    void Update () {
         SetTargetEnemy();
         if (targetEnemy)
         {
