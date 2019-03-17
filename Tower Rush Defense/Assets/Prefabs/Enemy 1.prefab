@@ -556,6 +556,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a591116039138948b4bbd8662f2bea6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  movementPeriod: 0.5
+  selfDestructParticlePrefab: {fileID: 198537984209914932, guid: 22ed852b217848243a0d109a00f21834,
+    type: 2}
 --- !u!114 &114803586722968952
 MonoBehaviour:
   m_ObjectHideFlags: 1

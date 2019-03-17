@@ -18,58 +18,58 @@ public class Pathfinder : MonoBehaviour {
         Vector2Int.left
     };
 
-    public List<Waypoint> getPath()
+    public List<Waypoint> GetPath()
     {
         if (path.Count == 0)
         {
-            calculatePath();
-            colorStartAndEnd();
+            CalculatePath();
+            ColorStartAndEnd();
         }
         return path;
     }
 
-    private void calculatePath()
+    private void CalculatePath()
     {
-        loadBlocks();
-        breadthFirstSearch();
-        createPath();
+        LoadBlocks();
+        BreadthFirstSearch();
+        CreatePath();
     }
 
-    private void createPath()
+    private void CreatePath()
     {
         print("create path");
-        setAsPath(endWaypoint);
+        SetAsPath(endWaypoint);
 
         Waypoint previous = endWaypoint.exploredFrom;
         while(previous != startWaypoint)
         {
-            setAsPath(previous);
+            SetAsPath(previous);
             previous = previous.exploredFrom;
         }
-        setAsPath(startWaypoint);
+        SetAsPath(startWaypoint);
         path.Reverse();
     }
 
-    private void setAsPath(Waypoint waypoint)
+    private void SetAsPath(Waypoint waypoint)
     {
         path.Add(waypoint);
         waypoint.isPlaceable = false;
     }
 
-    private void breadthFirstSearch()
+    private void BreadthFirstSearch()
     {
         queue.Enqueue(startWaypoint);
 
         while(queue.Count > 0 && isRunning)
         {
            searchCenter = queue.Dequeue();
-           stopIfEndFound();
-           exploreNeighbors();
+           StopIfEndFound();
+           ExploreNeighbors();
            searchCenter.isExplored = true;
         }
     }
 
-    private void stopIfEndFound()
+    private void StopIfEndFound()
     {
         if (searchCenter == endWaypoint)
         {
@@ -77,21 +77,21 @@ public class Pathfinder : MonoBehaviour {
         }
     }
 
-    private void exploreNeighbors()
+    private void ExploreNeighbors()
     {
         if (!isRunning) { return; }
 
         foreach(Vector2Int direction in directions)
         {
-            Vector2Int neighborCoordinates = searchCenter.getGridPos() + direction;
+            Vector2Int neighborCoordinates = searchCenter.GetGridPos() + direction;
             if (grid.ContainsKey(neighborCoordinates))
             {
-                queueNewNeighbors(neighborCoordinates);
+                QueueNewNeighbors(neighborCoordinates);
             } 
         }
     }
 
-    private void queueNewNeighbors(Vector2Int neighborCoordinates)
+    private void QueueNewNeighbors(Vector2Int neighborCoordinates)
     {
         Waypoint neighbor = grid[neighborCoordinates];
         if (neighbor.isExplored || queue.Contains(neighbor))
@@ -105,19 +105,19 @@ public class Pathfinder : MonoBehaviour {
         }
     }
 
-    private void colorStartAndEnd()
+    private void ColorStartAndEnd()
     {
         // todo move
-        startWaypoint.setTopColor(Color.green);
-        endWaypoint.setTopColor(Color.red);
+        startWaypoint.SetTopColor(Color.green);
+        endWaypoint.SetTopColor(Color.red);
     }
 
-    private void loadBlocks()
+    private void LoadBlocks()
     {
         var waypoints = FindObjectsOfType<Waypoint>();
         foreach(Waypoint waypoint in waypoints)
         {
-            var gridPos = waypoint.getGridPos();
+            var gridPos = waypoint.GetGridPos();
             if(grid.ContainsKey(gridPos))
             {
                 Debug.LogWarning("Skipping overlapping block " + waypoint);

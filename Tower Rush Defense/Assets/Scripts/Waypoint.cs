@@ -17,7 +17,7 @@ public class Waypoint : MonoBehaviour {
         return gridSize;
     }
 
-    public Vector2Int getGridPos()
+    public Vector2Int GetGridPos()
     {
         return new Vector2Int(
              Mathf.RoundToInt(transform.position.x / gridSize),
@@ -26,23 +26,23 @@ public class Waypoint : MonoBehaviour {
 
     }
 
-    public void setTopColor(Color color)
+    public void SetTopColor(Color color)
     {
         MeshRenderer topMeshRenderer = transform.Find("Top").GetComponent<MeshRenderer>();
         topMeshRenderer.material.color = color;
       
     }
 
-    public void setExploredColor()
+    public void SetExploredColor()
     {
         if (isExplored)
         {
             print(exploredColor);
-            setTopColor(exploredColor);
+            SetTopColor(exploredColor);
         }
         else
         {
-            setTopColor(Color.cyan);
+            SetTopColor(Color.cyan);
         }
     }
 
@@ -56,7 +56,7 @@ public class Waypoint : MonoBehaviour {
         {
             if (isPlaceable)
             {
-                FindObjectOfType<TowerFactory>().addTower(this);
+                FindObjectOfType<TowerFactory>().AddTower(this);
             }
             else
             {

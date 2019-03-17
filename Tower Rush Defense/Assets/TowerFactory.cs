@@ -11,20 +11,20 @@ public class TowerFactory : MonoBehaviour {
     public Waypoint baseWaypoint;
 
 
-    public void addTower(Waypoint baseWaypoint)
+    public void AddTower(Waypoint baseWaypoint)
     {
         int numTowers = towerQueue.Count;
         if (numTowers < towerLimit)
         {
-            instantiateNewTower(baseWaypoint);
+            InstantiateNewTower(baseWaypoint);
         }
         else
         {
-            moveTower(baseWaypoint);
+            MoveTower(baseWaypoint);
         }
     }
 
-    private void instantiateNewTower(Waypoint baseWaypoint)
+    private void InstantiateNewTower(Waypoint baseWaypoint)
     {
         var newTower = Instantiate(towerPrefab, baseWaypoint.transform.position, Quaternion.identity);
         newTower.transform.parent = towerParentTransform;
@@ -35,7 +35,7 @@ public class TowerFactory : MonoBehaviour {
         towerQueue.Enqueue(newTower);
     }
 
-    private void moveTower(Waypoint newBaseWaypoint)
+    private void MoveTower(Waypoint newBaseWaypoint)
     {
         var oldTower = towerQueue.Dequeue();
 
