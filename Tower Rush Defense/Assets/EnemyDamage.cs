@@ -9,10 +9,13 @@ public class EnemyDamage : MonoBehaviour {
     [SerializeField] Collider collisionMesh;
     [SerializeField] ParticleSystem hitParticlePrefab;
     [SerializeField] ParticleSystem deathParticlePrefab;
+    [SerializeField] AudioClip enemyDamageSFX;
+    [SerializeField] AudioClip enemyDeathSFX;
     private EnemySpawner enemySpawner;
-
+    AudioSource audioSource;
     void Start () {
         enemySpawner = FindObjectOfType<EnemySpawner>();
+        audioSource = GetComponent<AudioSource>();
     }
     private void OnParticleCollision(GameObject other)
     {
@@ -38,6 +41,7 @@ public class EnemyDamage : MonoBehaviour {
 
     private void ProcessHit()
     {
+        audioSource.PlayOneShot(enemyDamageSFX);
         hitPoints = hitPoints - 1;
         hitParticlePrefab.Play();
     }

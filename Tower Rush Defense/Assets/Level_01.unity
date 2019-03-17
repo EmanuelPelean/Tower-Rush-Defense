@@ -4237,6 +4237,7 @@ GameObject:
   m_Component:
   - component: {fileID: 927347209}
   - component: {fileID: 927347210}
+  - component: {fileID: 927347211}
   m_Layer: 0
   m_Name: Enemies
   m_TagString: Untagged
@@ -4273,7 +4274,88 @@ MonoBehaviour:
     type: 2}
   enemyParentTransform: {fileID: 927347209}
   wave: {fileID: 1360002077}
+  spawnedEnemySFX: {fileID: 8300000, guid: 34960c9c44ce08146a99f0017368273f, type: 3}
   currentScore: {fileID: 1147730721}
+--- !u!82 &927347211
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 927347208}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!4 &936550515 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4469019609707330, guid: b32bd75ac5c3c024e9d4e01473f5f97f,
@@ -4747,42 +4829,11 @@ Transform:
   m_Father: {fileID: 310875312}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1126383684 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1716733542366808, guid: a467c20795e0fed40b0d21d2bebe3b04,
-    type: 2}
-  m_PrefabInternal: {fileID: 1156101895}
 --- !u!4 &1126383685 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4219318968960842, guid: a467c20795e0fed40b0d21d2bebe3b04,
     type: 2}
   m_PrefabInternal: {fileID: 1156101895}
---- !u!65 &1126383688
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1126383684}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 17.96, y: 16.7, z: 14}
-  m_Center: {x: -18.6, y: 31.51, z: -8.8}
---- !u!114 &1126383689
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1126383684}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 816dd7b4c52ebf84bbe31db7e82f3cbe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 10
-  healthDecrease: 1
-  healthText: {fileID: 1481583038}
 --- !u!1001 &1127554661
 Prefab:
   m_ObjectHideFlags: 0
@@ -5016,18 +5067,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4219318968960842, guid: a467c20795e0fed40b0d21d2bebe3b04, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4219318968960842, guid: a467c20795e0fed40b0d21d2bebe3b04, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4219318968960842, guid: a467c20795e0fed40b0d21d2bebe3b04, type: 2}
-      propertyPath: m_LocalScale.z
-      value: 0.5
-      objectReference: {fileID: 0}
+    - target: {fileID: 114786567568464908, guid: a467c20795e0fed40b0d21d2bebe3b04,
+        type: 2}
+      propertyPath: healthText
+      value: 
+      objectReference: {fileID: 1481583038}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a467c20795e0fed40b0d21d2bebe3b04, type: 2}
   m_IsPrefabParent: 0
