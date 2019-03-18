@@ -6,7 +6,12 @@ using UnityEngine;
 public class EnemyMovement : MonoBehaviour {
     [SerializeField] float movementPeriod = .5f;
     [SerializeField] ParticleSystem selfDestructParticlePrefab;
-	void Start () {
+    float t;
+    Vector3 startPosition;
+    Vector3 target;
+    float timeToReachTarget;
+
+    void Start () {
         Pathfinder pathfinder = FindObjectOfType<Pathfinder>();
         var path = pathfinder.GetPath();
         StartCoroutine(FollowPath(path));
@@ -14,17 +19,26 @@ public class EnemyMovement : MonoBehaviour {
 
     IEnumerator FollowPath(List<Waypoint> path)
     {
-        print("Starting patrol...");
         foreach (Waypoint waypoint in path)
         {
-            var direction = waypoint.transform.position - transform.position;
-            
-            Vector3 waypointPosition = waypoint.transform.position;
-            
-            transform.position = waypointPosition;
-            yield return new WaitForSeconds(movementPeriod);
+            var currentPos = transform.position;
+            var t = 0f;
+            while (t < 1)
+            {
+                t += Time.deltaTime / .5f;
+                transform.position = Vector3.Lerp(currentPos, waypoint.transform.position, t);
+                yield return null;
+            }
+
+            //Vector3 waypointPosition = waypoint.transform.position;
+            //transform.position = waypointPosition;
+            //yield return new WaitForSeconds(movementPeriod);
         }
         SelfDestruct();
+    }
+
+    private void Update()
+    {
     }
 
     void SelfDestruct()
