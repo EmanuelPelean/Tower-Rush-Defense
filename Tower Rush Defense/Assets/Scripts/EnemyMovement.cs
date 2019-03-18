@@ -4,12 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour {
-    [SerializeField] float movementPeriod = .5f;
+    //[SerializeField] float movementPeriod = .5f;
     [SerializeField] ParticleSystem selfDestructParticlePrefab;
-    float t;
-    Vector3 startPosition;
-    Vector3 target;
-    float timeToReachTarget;
 
     void Start () {
         Pathfinder pathfinder = FindObjectOfType<Pathfinder>();

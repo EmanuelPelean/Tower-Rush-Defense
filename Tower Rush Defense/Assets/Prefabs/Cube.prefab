@@ -325,5 +325,3 @@ MonoBehaviour:
   isExplored: 0
   exploredFrom: {fileID: 0}
   isPlaceable: 1
-  towerPrefab: {fileID: 114734110248494916, guid: 5ef3e1bb16421344da442bd1da976f4c,
-    type: 2}
