@@ -17,6 +17,8 @@ public class EnemyMovement : MonoBehaviour {
         print("Starting patrol...");
         foreach (Waypoint waypoint in path)
         {
+            var direction = waypoint.transform.position - transform.position;
+            
             Vector3 waypointPosition = waypoint.transform.position;
             
             transform.position = waypointPosition;
