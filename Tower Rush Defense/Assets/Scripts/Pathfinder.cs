@@ -37,7 +37,6 @@ public class Pathfinder : MonoBehaviour {
 
     private void CreatePath()
     {
-        print("create path");
         SetAsPath(endWaypoint);
 
         Waypoint previous = endWaypoint.exploredFrom;
