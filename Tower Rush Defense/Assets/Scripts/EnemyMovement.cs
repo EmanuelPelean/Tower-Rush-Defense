@@ -23,6 +23,13 @@ public class EnemyMovement : MonoBehaviour {
             {
                 t += Time.deltaTime / .5f;
                 transform.position = Vector3.Lerp(currentPos, waypoint.transform.position, t);
+
+                // rotate enemy to face forward direction
+                Vector3 direction = waypoint.transform.position - transform.position;
+                Quaternion lookRotation = Quaternion.LookRotation(direction);
+                float step = 300f * Time.deltaTime;
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, lookRotation, step);
+
                 yield return null;
             }
 
@@ -31,10 +38,6 @@ public class EnemyMovement : MonoBehaviour {
             //yield return new WaitForSeconds(movementPeriod);
         }
         SelfDestruct();
-    }
-
-    private void Update()
-    {
     }
 
     void SelfDestruct()
